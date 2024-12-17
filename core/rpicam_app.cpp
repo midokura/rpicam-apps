@@ -836,7 +836,7 @@ void RPiCamApp::RotateInputTensor(const unsigned int angle)
 
 void RPiCamApp::FlipInputTensor(const unsigned int flip)
 {
-	post_processor_.RotateInputTensor(flip);
+	post_processor_.FlipInputTensor(flip);
 }
 
 RPiCamApp::Msg RPiCamApp::Wait()
