@@ -293,3 +293,11 @@ void PostProcessor::FlipInputTensor(const unsigned int flip)
 		stage->FlipInputTensor(static_cast<uint32_t>(flip));
 	}
 }
+
+void PostProcessor::SetInferenceRoiAbs(const libcamera::Rectangle &roi_) const
+{
+	for (auto &stage : stages_)
+	{
+		stage->SetInferenceRoiAbs(roi_);
+	}
+}

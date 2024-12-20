@@ -49,6 +49,11 @@ void PostProcessingStage::FlipInputTensor(const uint32_t flip)
 {
 }
 
+void PostProcessingStage::SetInferenceRoiAbs(const libcamera::Rectangle &roi_) const
+{
+
+}
+
 std::vector<uint8_t> PostProcessingStage::Yuv420ToRgb(const uint8_t *src, StreamInfo &src_info, StreamInfo &dst_info)
 {
 	std::vector<uint8_t> output(dst_info.height * dst_info.stride);

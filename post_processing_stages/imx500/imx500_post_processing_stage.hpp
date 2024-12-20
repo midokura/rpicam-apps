@@ -55,7 +55,7 @@ public:
 
 	libcamera::Rectangle ConvertInferenceCoordinates(const std::vector<float> &coords,
 													 const libcamera::Rectangle &scalerCrop) const;
-	void SetInferenceRoiAbs(const libcamera::Rectangle &roi_) const;
+	void SetInferenceRoiAbs(const libcamera::Rectangle &roi_) const override;
 	void SetInferenceRoiAuto(const unsigned int width, const unsigned int height) const;
 	void ShowFwProgressBar();
 

@@ -839,6 +839,11 @@ void RPiCamApp::FlipInputTensor(const unsigned int flip)
 	post_processor_.FlipInputTensor(flip);
 }
 
+void RPiCamApp::SetInferenceRoiAbs(const libcamera::Rectangle &roi_) const
+{
+	post_processor_.SetInferenceRoiAbs(roi_);
+}
+
 RPiCamApp::Msg RPiCamApp::Wait()
 {
 	return msg_queue_.Wait();

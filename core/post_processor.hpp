@@ -76,6 +76,7 @@ public:
 
 	void FlipInputTensor(const unsigned int flip);
 
+    void SetInferenceRoiAbs(const libcamera::Rectangle &roi_) const;
 private:
 	PostProcessingStage *createPostProcessingStage(char const *name);
 
