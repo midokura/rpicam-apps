@@ -323,7 +323,11 @@ void RPiCamApp::ConfigureViewfinder()
 	}
 
 	// Now we get to override any of the default settings from the options_->
-	configuration_->at(0).pixelFormat = libcamera::formats::BGR888;
+	if (options_->viewfinder_mode_string == "image_rgb24") {
+       configuration_->at(0).pixelFormat = libcamera::formats::BGR888;
+	} else {
+	   configuration_->at(0).pixelFormat = libcamera::formats::YUV420;
+	}
 	configuration_->at(0).size = size;
 	if (options_->viewfinder_buffer_count > 0)
 		configuration_->at(0).bufferCount = options_->viewfinder_buffer_count;
