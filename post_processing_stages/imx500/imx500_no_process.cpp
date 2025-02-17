@@ -38,8 +38,9 @@ public:
 	void Configure() override;
 
 	bool Process(CompletedRequestPtr &completed_request) override;
+
 private:
-        bool started_ = false;
+	bool started_ = false;
 	bool inference_started_ = false;
 };
 
@@ -69,19 +70,18 @@ bool NoProcess::Process(CompletedRequestPtr &completed_request)
 		LOG_ERROR("Must have RAW stream and scaler crop available to get sensor dimensions!");
 		return false;
 	}
-	if (!inference_started_) {
-	    auto output = completed_request->metadata.get(controls::rpi::CnnOutputTensor);
-	    auto info = completed_request->metadata.get(controls::rpi::CnnOutputTensorInfo);
-	    if (!output || !info) {
-		    return false;
-	    }
-	    inference_started_ = true; 
+	if (!inference_started_)
+	{
+		auto output = completed_request->metadata.get(controls::rpi::CnnOutputTensor);
+		auto info = completed_request->metadata.get(controls::rpi::CnnOutputTensorInfo);
+		if (!output || !info)
+		{
+			return false;
+		}
+		inference_started_ = true;
 	}
-	else {
-        return IMX500PostProcessingStage::Process(completed_request);
-	}
-　　　return false;
-	
+
+	return IMX500PostProcessingStage::Process(completed_request);
 }
 
 static PostProcessingStage *Create(RPiCamApp *app)
