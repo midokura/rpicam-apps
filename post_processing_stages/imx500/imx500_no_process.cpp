@@ -39,8 +39,8 @@ public:
 
 	bool Process(CompletedRequestPtr &completed_request) override;
 private:
-    bool started_ = false;
-	bool inference_started_ = false
+        bool started_ = false;
+	bool inference_started_ = false;
 };
 
 char const *NoProcess::Name() const
