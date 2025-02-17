@@ -77,9 +77,11 @@ bool NoProcess::Process(CompletedRequestPtr &completed_request)
 	    }
 	    inference_started_ = true; 
 	}
-    if (inference_started_) {
+	else {
         return IMX500PostProcessingStage::Process(completed_request);
 	}
+　　　return false;
+	
 }
 
 static PostProcessingStage *Create(RPiCamApp *app)
