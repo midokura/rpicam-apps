@@ -147,6 +147,11 @@ public:
 	Msg Wait();
 	void PostMessage(MsgType &t, MsgPayload &p);
 
+	void RotateInputTensor(const unsigned int angle);
+	void FlipInputTensor(const unsigned int flip);
+
+	void SetInferenceRoiAbs(const libcamera::Rectangle &roi_) const;
+
 	Stream *GetStream(std::string const &name, StreamInfo *info = nullptr) const;
 	Stream *ViewfinderStream(StreamInfo *info = nullptr) const;
 	Stream *StillStream(StreamInfo *info = nullptr) const;

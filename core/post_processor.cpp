@@ -277,3 +277,27 @@ void PostProcessor::Teardown()
 		stage->Teardown();
 	}
 }
+
+void PostProcessor::RotateInputTensor(const unsigned int angle)
+{
+	for (auto &stage : stages_)
+	{
+		stage->RotateInputTensor(static_cast<uint32_t>(angle));
+	}
+}
+
+void PostProcessor::FlipInputTensor(const unsigned int flip)
+{
+	for (auto &stage : stages_)
+	{
+		stage->FlipInputTensor(static_cast<uint32_t>(flip));
+	}
+}
+
+void PostProcessor::SetInferenceRoiAbs(const libcamera::Rectangle &roi_) const
+{
+	for (auto &stage : stages_)
+	{
+		stage->SetInferenceRoiAbs(roi_);
+	}
+}

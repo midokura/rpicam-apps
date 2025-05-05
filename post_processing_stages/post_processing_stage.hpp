@@ -54,6 +54,12 @@ public:
 
 	virtual void Teardown();
 
+	virtual void RotateInputTensor(const uint32_t angle);
+
+	virtual void FlipInputTensor(const uint32_t flip);
+
+	virtual void SetInferenceRoiAbs(const libcamera::Rectangle &roi_) const;
+
 	// Below here are some helpers provided for the convenience of derived classes.
 
 	// Convert YUV420 image to RGB. We crop from the centre of the image if the src
