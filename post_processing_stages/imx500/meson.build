@@ -5,6 +5,8 @@ imx500_postprocessing_src = files([
     'imx500_object_detection.cpp',
     # Posenet
     'imx500_posenet.cpp',
+    # No process at rpicam
+    'imx500_no_process.cpp',
 ])
 
 postproc_assets += files([
