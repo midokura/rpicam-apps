@@ -162,7 +162,6 @@ void RPiCamApp::OpenCamera()
 	if (!options_->post_process_file.empty())
 	{
 		post_processor_.LoadModules(options_->post_process_libs);
-		post_processor_.Read(options_->post_process_file);
 	}
 	// The queue takes over ownership from the post-processor.
 	post_processor_.SetCallback(
@@ -323,7 +322,11 @@ void RPiCamApp::ConfigureViewfinder()
 	}
 
 	// Now we get to override any of the default settings from the options_->
-	configuration_->at(0).pixelFormat = libcamera::formats::YUV420;
+	if (options_->viewfinder_mode_string == "image_rgb24") {
+       configuration_->at(0).pixelFormat = libcamera::formats::BGR888;
+	} else {
+	   configuration_->at(0).pixelFormat = libcamera::formats::YUV420;
+	}
 	configuration_->at(0).size = size;
 	if (options_->viewfinder_buffer_count > 0)
 		configuration_->at(0).bufferCount = options_->viewfinder_buffer_count;
@@ -366,7 +369,10 @@ void RPiCamApp::ConfigureViewfinder()
 	if (!options_->no_raw)
 		streams_["raw"] = configuration_->at(raw_stream_num).stream();
 
-	post_processor_.Configure();
+    if (!options_->post_process_file.empty()) {
+       post_processor_.Read(options_->post_process_file);
+	   post_processor_.Configure();
+	}
 
 	LOG(2, "Viewfinder setup complete");
 }
@@ -1197,8 +1203,8 @@ void RPiCamApp::previewThread()
 				preview_cond_var_.wait(lock);
 		}
 
-		if (item.stream->configuration().pixelFormat != libcamera::formats::YUV420)
-			throw std::runtime_error("Preview windows only support YUV420");
+		// if (item.stream->configuration().pixelFormat != libcamera::formats::YUV420)
+		// 	throw std::runtime_error("Preview windows only support YUV420");
 
 		StreamInfo info = GetStreamInfo(item.stream);
 		FrameBuffer *buffer = item.completed_request->buffers[item.stream];
