@@ -370,7 +370,11 @@ void RPiCamApp::ConfigureViewfinder()
 	if (!options_->no_raw)
 		streams_["raw"] = configuration_->at(raw_stream_num).stream();
 
-	post_processor_.Configure();
+	if (!options_->post_process_file.empty())
+	{
+       post_processor_.Read(options_->post_process_file);
+	}
+    post_processor_.Configure();
 
 	LOG(2, "Viewfinder setup complete");
 }

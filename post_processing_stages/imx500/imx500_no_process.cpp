@@ -42,8 +42,9 @@ public:
 	bool Process(CompletedRequestPtr &completed_request) override;
 
 private:
-	bool started_ = false;
+	bool network_loaderd_ = false;
 	bool inference_started_ = false;
+	bool network_load_started_ = false;
 };
 
 char const *NoProcess::Name() const
@@ -53,22 +54,27 @@ char const *NoProcess::Name() const
 
 void NoProcess::Read(boost::property_tree::ptree const &params)
 {
-	IMX500PostProcessingStage::Read(params);
+	if (!network_loaderd_) {
+	    IMX500PostProcessingStage::Read(params);
+		network_loaderd_ = true;
+	}
 }
+
 void NoProcess::Configure()
 {
 	IMX500PostProcessingStage::Configure();
-	if (!started_)
+	if (!network_load_started_)
 	{
 		IMX500PostProcessingStage::ShowFwProgressBar();
-		started_ = true;
+		network_load_started_ = true;
 	}
 }
 
 void NoProcess::Stop()
 {
 	inference_started_ = false;
-	started_ = false;
+	network_loaderd_ = false;
+	network_load_started_ = false;
 }
 
 bool NoProcess::Process(CompletedRequestPtr &completed_request)
